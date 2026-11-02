@@ -39,12 +39,20 @@ in
       pkgs.fuse3
     ];
 
-    security.wrappers.fusermount3 = {
-      group = "root";
-      owner = "root";
-      setuid = true;
-      source = "${lib.getBin pkgs.fuse3}/bin/fusermount3";
-    };
+    security.wrappers = {
+      fusermount = {
+        group = "root";
+        owner = "root";
+        setuid = true;
+        source = "${lib.getBin pkgs.fuse3}/bin/fusermount3";
+      };
+      fusermount3 = {
+        group = "root";
+        owner = "root";
+        setuid = true;
+        source = "${lib.getBin pkgs.fuse3}/bin/fusermount3";
+      };
+  };
 
     environment.etc."fuse.conf".text = ''
       ${lib.optionalString (!cfg.userAllowOther) "#"}user_allow_other
